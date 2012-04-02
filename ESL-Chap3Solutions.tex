@@ -52,7 +52,7 @@ keywordstyle=\color{RedViolet},
 tabsize=2
 }
 
-\title{Elements of Statistical Learning - Chapter Solutions}								% Document Title
+\title{Elements of Statistical Learning - Chapter 3 Solutions}								% Document Title
 \author{Andrew Tulloch}
 
 \begin{document}
@@ -200,6 +200,7 @@ p <- p + scale_color_brewer(name="Legend",
         \hat \beta^c = \argmin_{\beta^c} \left( \sum_{i=1}^{N} \left( y_i - \beta^c_0 - \sum_{j=1}^{p}(x_{ij} - \hat x_j) \beta^c_j \right)^2 + \lambda \sum_{j=1}^{p}{\beta_j^c}^2 \right)^2.
         \]
 \end{exer}
+
 \begin{proof}
     Consider rewriting our objective function above as  \[
         L(\beta^c) = \sum_{i=1}^{N}\left(y_i - \left(\beta_0^c - \sum_{j=1}^{p} \bar x_j \beta_j^c \right) - \sum_{j=1}^p x_{ij} \beta_j^c \right)^2 + \lambda \sum_{j=1}^p {\beta_j^2}^2
@@ -212,5 +213,12 @@ p <- p + scale_color_brewer(name="Legend",
     The modified solution merely has a shifted intercept term, and all other coefficients remain the same.  
 \end{proof}
 
+\begin{exer}[Exercise 3.12]
+    For our augmented matrix $X_1$, equal to appending $\sqrt{\lambda I}$ to the original observation matrix $X$, we have that the $RSS$ expression for OLS regression becomes \begin{align*}
+        RSS &= \sum_{i=1}^{N+p} \left(y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
+            &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{i = N + 1}^{N+p} \left(\sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
+            &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{j=1}^p \lambda \beta_j^2 
+    \end{align*} which is the objective function for the ridge regression estimate.
+\end{exer}
 
 \end{document}

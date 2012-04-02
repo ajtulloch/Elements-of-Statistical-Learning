@@ -10,6 +10,34 @@
 \onehalfspacing                 
 \usepackage{fontspec,xltxtra,xunicode}
 
+\usepackage[usenames, dvipsnames]{color}
+\definecolor{graphblue}{RGB}{52, 138, 189}
+\definecolor{graphpurple}{RGB}{122, 104, 166}
+
+\usepackage{listings}
+
+\lstset{
+language=Python,
+numbers=left,
+numberstyle=\scriptsize,
+stepnumber=0,
+numbersep=5pt,
+showspaces=false,
+breaklines=true,
+basicstyle=\ttfamily\scriptsize,
+frame=single,
+commentstyle=\scriptsize,
+prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+showstringspaces=false,
+showtabs=false,
+identifierstyle=\ttfamily,
+stringstyle=\color{Gray},
+commentstyle=\color{graphpurple},
+keywordstyle=\color{graphblue},
+commentstyle=\color{RoyalBlue},
+keywordstyle=\color{RedViolet},
+tabsize=2
+}
 
 % AMS Theorems
 \theoremstyle{plain}% default 
@@ -18,10 +46,6 @@
 \newtheorem{prop}[thm]{Proposition} 
 \newtheorem{exer}[thm]{Exercise} 
 
-\newtheorem*{cor}{Corollary} 
-
-
-\newcommand{\res}[2]{\text{Res}(#1,#2)}
 \theoremstyle{definition} 
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{conj}[thm]{Conjecture}
@@ -32,71 +56,12 @@
 \newtheorem*{note}{Note} 
 \newtheorem{case}{Case} 
 
-\newcommand{\expc}[1]{\mathbb{E}\left[#1\right]}
-\newcommand{\var}{\text{Var}}
-\newcommand{\cov}[1]{\text{Cov}\left(#1\right)}
-\newcommand{\prob}[1]{\mathbb{P}(#1)}
-\newcommand{\given}{ \, | \,}
-\newcommand{\us}{0 \leq u \leq s}
-\newcommand{\ts}[1]{\{ #1 \}}
-
-\renewcommand{\phi}{\varphi}
-\newcommand{\sigf}{\mathcal{F}}
-
-\newcommand{\dzz}{\, dz}
-\newcommand{\bigo}[1]{\mathcal{O}(#1)}
-
-\newcommand{\al}{\alpha}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\N}{\mathbb{N}}
-
-\newcommand{\I}{\mathbb{I}}
-
-\renewcommand{\P}{\mathbb{P}}
-
-\newcommand{\F}{\mathbb{F}}
-\newcommand{\Ga}{\mathbb{G}}
-
-\newcommand{\aut}[1]{\text{Aut}{(#1)}}
-
-\newcommand{\gener}[1]{\langle #1 \rangle}
-\newcommand{\charr}[1]{\text{char}(#1)}
-\newcommand{\nth}{n\textsuperscript{th}}
-
-\newcommand{\tworow}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}
-\newcommand{\xdeg}[2]{[#1 : #2]}
-\newcommand{\gal}[2]{\text{Gal}(#1/#2)}
-\newcommand{\minpoly}[2]{m_{#1, #2}(x)}
-
-\newcommand{\mapping}[5]{\begin{align*}
-	#1 : \quad     #2 &\rightarrow #3 \\
-			#4  &\mapsto #5
-\end{align*}	
-}
-
-
-\def\cip{\,{\buildrel p \over \rightarrow}\,} 
-\def\cid{\,{\buildrel d \over \rightarrow}\,} 
-\def\cas{\,{\buildrel a.s. \over \rightarrow}\,} 
-
-\def\clp{\,{\buildrel L^p \over \rightarrow}\,} 
-
-\def\eqd{\,{\buildrel d \over =}\,} 
-\def\eqas{\,{\buildrel a.s. \over =}\,}
-
-\newcommand{\sigg}{\mathcal{G}}		
-\newcommand{\indic}[1]{\mathbf{1}_{\{ #1 \}} }
-\newcommand{\itos}{\text{It\^o's\ }}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 		
 		
-\title{Elements of Statistical Learning - Chapter Solutions}								% Document Title
+\title{Elements of Statistical Learning - Chapter 2 Solutions}								% Document Title
 \author{Andrew Tulloch}
 
 
@@ -110,6 +75,7 @@ No exercises.
 \begin{exer}
     Suppose that each of $K$-classes has an associated target $t_k$, which is a vector of all zeroes, except a one in the $k$-th position.  Show that classifying the largest element of $\hat y$ amounts to choosing the closest target, $\min_k \| t_k - \hat y \|$ if the elements of $\hat y$ sum to one. 
 \end{exer}
+
 \begin{proof}
     The assertion is equivalent to showing that \[
     \argmax_i \hat y_i = \argmin_k \| t_k - \hat y \| = \argmin_k \|\hat y - t_k \|^2
@@ -131,6 +97,7 @@ Thus we must have \[
 \begin{exer}
     Show how to compute the Bayes decision boundary for the simulation example in Figure 2.5.
 \end{exer}
+
 \begin{proof}
     The Bayes classifier is \[
         \hat G(X) = \argmax_{g \in \mathcal G} P(g | X = x ).
@@ -141,6 +108,14 @@ Thus we must have \[
     By the Bayes rule, this is equivalent to the set of points where \[
         P(X = x | g = \textsc{blue}) P(g = \textsc{blue}) = P(X = x | g = \textsc{orange}) P(g = \textsc{orange})
     \] And since we know $P(g)$ and $P(X=x|g)$, the decision boundary can be calculated.
+\end{proof}
+
+\begin{exer}
+    Derive equation (2.24)
+\end{exer}
+
+\begin{proof}
+    TODO
 \end{proof}
     
 \begin{exer}
@@ -200,7 +175,7 @@ Thus we must have \[
                     &= x_0^T \text{Var}_{\mathcal T}(\hat \beta) x_0 \\
                     &= E_{\mathcal T} x_0^T \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1} x_0
             \end{align*} by conditioning (3.8) on $\mathcal T$.
-        \item 
+        \item TODO
     \end{enumerate}
 \end{proof}
 
@@ -221,13 +196,25 @@ Thus we must have \[
 \end{proof}
 
 \begin{exer}
-    Suppose that we have a sample of $N$ pairs $x_i, y_i$, drawn IID from the distribution such that $x_i \sim h(x), y_i = f(x_i) + \epsilon_i, E(\epsilon_i) = 0, \text{Var}(\epsilon_i) = \sigma^2$.
+    Suppose that we have a sample of $N$ pairs $x_i, y_i$, drawn IID from the distribution such that \begin{align*}
+        x_i \sim h(x), \\
+        y_i = f(x_i) + \epsilon_i, \\
+        E(\epsilon_i) = 0, \\
+        \text{Var}(\epsilon_i) = \sigma^2.
+    \end{align*}
     
     We construct an estimator for $f$ linear in the $y_i$, \[
         \hat f(x_0) = \sum_{i=1}^N \ell_i(x_0; \mathcal X) y_i
     \] where the weights $\ell_i(x_0; X)$ do not depend on the $y_i$, but do depend on the training sequence $x_i$ denoted by $\mathcal X$.  
     \begin{enumerate}[(a)]
         \item Show that the linear regression and $k$-nearest-neighbour regression are members of this class of estimators.  Describe explicitly the weights $\ell_i(x_0; \mathcal X)$ in each of these cases.
+        \item Decompose the conditional mean-squared error \[
+            E_{\mathcal Y | \mathcal X} \left( f(x_0) - \hat f(x_0) \right)^2
+        \] into a conditional squared bias and a conditional variance component.  $\mathcal Y$ represents the entire training sequence of $y_i$.
+        \item Decompose the (unconditional) MSE \[
+            E_{\mathcal Y, \mathcal X}\left(f(x_0) - \hat f(x_0) \right)^2
+        \] into a squared bias and a variance component.
+        \item Establish a relationship between the square biases and variances in the above two cases.
     \end{enumerate}
 \end{exer}
 
@@ -246,6 +233,57 @@ Thus we must have \[
         \] where $N_k(x_0)$ represents the set of $k$-nearest-neighbours of $x_0$.  Clearly, \[
             \ell_i(x_0; \mathcal X) = \frac{1}{k} \mathbf{1}_{x_i \in N_k(x_0)}
         \]
+        \item TODO
+        \item TODO
+        \item TODO
     \end{enumerate}
 \end{proof}
+
+\begin{exer}
+    Compare the classification performance of linear regression and $k$-nearest neighbour classification on the \texttt{zipcode} data.  In particular, consider on the \texttt{2}'s and \texttt{3}'s, and $k = 1, 3, 5, 7, 15$.  Show both the training and test error for each choice.
+\end{exer}
+
+\begin{proof}
+    TODO - Plot error rates, etc.
+    
+\begin{lstlisting}
+# Load training data
+zip.train <- as.data.frame(read.table(file="zip.train", header=FALSE))
+colnames(zip.train) <- c("Y",paste("X.",1:256,sep=""))
+zip.train.filtered <- subset(zip.train, Y == 2 | Y == 3)
+# Create linear regression
+mod <- lm(Y ~ ., data = zip.train.filtered)
+
+# Load testing data
+zip.test <- as.data.frame(read.table(file="zip.test", header=FALSE))
+colnames(zip.test) <- c("Y",paste("X.",1:256,sep=""))
+zip.test.filtered <- subset(zip.test, Y == 2 | Y == 3)
+# Predict categories
+zip.test.filtered$Ypred <- predict(mod, zip.test.filtered)
+
+category_f <- function(x) {
+if (x > 2.5) 3 else 2
+}
+# Round predictions
+zip.test.filtered$Yround <- sapply(zip.test.filtered$Ypred, category_f)
+
+##### KNN
+knn.test.data <- subset(zip.test, Y == 2 | Y == 3)
+knn.train.data <- subset(zip.train, Y == 2 | Y == 3)
+knn.train.data$Y <- as.factor(knn.train.data$Y)
+
+knn.results <- sapply(1:15, function(k) { knn(train=knn.train.data, test=knn.test.data, knn.train.data$Y, k = k) })
+install.packages("mclust")
+errors <- sapply(knn.results, function(classification) { classError(knn.test.data$Y, classification)$errorRate})
+\end{lstlisting}
+    
+\end{proof}
+
+\begin{exer}
+    Consider a linear regression model with $p$ parameters, fitted by OLS to a set of trainig data $(x_i, y_i)_{1 \leq i \leq N}$ drawn at random from a population.  Let $\hat \beta$ be the least squares estimate.  Suppose we have some test data $(\tilde x_i, \tilde y_i)_{1 \leq i \leq M}$ drawn at random from the same population as the training data.
+    
+    If $R_{tr}(\beta) = \frac{1}{N} \sum_{i=1}^N \left(y_i \beta^T x_i \right)^2$ and $R_{te}(\beta) = \frac{1}{M} \sum_{i=1}^M \left( \tilde y_i - \beta^T \tilde x_i \right)^2$, prove that \[
+        E(R_{tr}(\hat \beta)) \leq E(R_{te}(\hat \beta))
+    \] where the expectation is over all that is random in each expression.
+\end{exer}
 \end{document}
