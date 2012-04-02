@@ -77,14 +77,16 @@ tabsize=2
   Hence, by dropping a single coefficient from a model, our $F$ statistic has a $F_{1, N-p - 1}$ where $p + 1$ are the number of parameters in the original model.  Similarly, the corresponding $z$-score is distributed according to a $t_{N-p-1}$ distribution, and thus the square of the $z$-score is distributed according to an $F_{1, N-p-1}$ distribution, as required.
 
   Thus both the $z$-score and the $F$ statistic test identical hypotheses under identical distributions.  Thus they must have the same value in this case.    
-
 \end{proof}
+
 \begin{exer}
     Given data on two variables $X$ and $Y$, consider fitting a cubic polynomial regression model $f(X) = \sum_{j=0}^{3} \beta_j X^j$.  In addition to plotting the fitted curve, you would like a 95\% confidence band about the curve.  Consider the following two approaches:
+
 \begin{enumerate}
     \item At each point $x_0$, form a 95\% confidence interval for the linear function $a^T \beta = \sum_{j=0}^{3}\beta_j x_0^j$.  
     \item Form a 95\% confidence set for $\beta$ as in (3.15), which in tun generates confidence intervals for $f(x_0)$.  
 \end{enumerate}
+
    How do these approaches differ?  Which band is likely to be wider?  Conduct a small simulation experiment to compare the two methods.
 \end{exer}
 
@@ -141,12 +143,16 @@ p <- p + scale_color_brewer(name="Legend",
                  "95% Upper Bound"), 
         palette="Set1")
 \end{lstlisting}
+
+    TODO: Part 2.
 \end{proof}
 
-\begin{exer}
-    Prove the Gauss-Markov theorem: the least squares estimate of a parameter $a^T\beta$ has a variance no bigger than that of any other linear unbiased estimate of $a^T\beta$.
+\begin{exer}[The Gauss-Markov Theorem]
+    \begin{enumerate}
+    \item Prove the Gauss-Markov theorem: the least squares estimate of a parameter $a^T\beta$ has a variance no bigger than that of any other linear unbiased estimate of $a^T\beta$.
 
-    Secondly, show that if $\hat V$ is the variance-covariance matrix of the least squares estimate of $\beta$ and $\tilde V$ is the variance covariance matrix of any other linear unbiased estimate, then $\hat V \leq \tilde V$, where $B \leq A$ if $A - B$ is positive semidefinite.
+    \item Secondly, show that if $\hat V$ is the variance-covariance matrix of the least squares estimate of $\beta$ and $\tilde V$ is the variance covariance matrix of any other linear unbiased estimate, then $\hat V \leq \tilde V$, where $B \leq A$ if $A - B$ is positive semidefinite.
+    \end{enumerate}
 \end{exer}
 
 \begin{proof}
@@ -217,7 +223,59 @@ p <- p + scale_color_brewer(name="Legend",
     The modified solution merely has a shifted intercept term, and all other coefficients remain the same.  
 \end{proof}
 
-\begin{exer}[Exercise 3.12]
+\begin{exer}
+    Show that the ridge regression estimate is the mean (and mode) of the posterior distribution, under a Gaussian prior $\beta \sim N(0, \tau \mathbf{I})$, and Gaussian sampling model $y \sim N(X \beta, \sigma^2 \mathbf{I})$.  Find the relationship between the regularization parameter $\lambda$ in the ridge formula, and the variances $\tau$ and $\sigma^2$.
+\end{exer}
+
+\begin{exer}
+    Assume 
+    \[ y_i \sim N(\beta_0 + x_i^T \beta, \sigma^2), i = 1, 2, \dots, N \] and the parameters $\beta_j$ are are each distributed as $N(0, \tau^2)$, independently of one another.  Assume $\sigma^2$ and $\tau^2$ are known, show that the minus log-posterior density of $\beta$ is proportional to 
+    \[ \sum_{i=1}^N \left( y_i - \beta_0 - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \lambda \sum_{j=1}^p \beta_j^2 \]
+    where $\lambda = \frac{\sigma^2}{\tau^2}$.  
+\end{exer}
+
+\begin{exer}
+    Consider the $QR$ decomposition of the uncentred $N \times (p+1)$ matrix $X$, whose first column is all ones, and the SVD of the $N \times p$ centred matrix $\tilde X$.  Show that $Q_2$ and $U$ share the same subspace, where $Q_2$ is the submatrix of $Q$ with the first column removed.  Under what circumstances will they be the same, up to sign flips?
+\end{exer}
+
+\begin{proof}
+    Denote the columns of $X$ by $x_0, \dots, x_{p}$, the columns of $Q$ by $z_0, \dots, z_p$, the columns of $\tilde X$ by $\tilde x_1, \dots, x_n$, and the columns of $U$ by $u_1, \dots, u_p$.  Without loss of generality, we can assume that for all $i$, $\| x_i \| = 1$ and that $X$ is non-singular (this cleans up the proof somewhat).
+
+
+    First, note that by the QR decomposition, we have that $\text{span}(x_0, \dots, x_j) = \text{span}(z_0, \dots, z_j)$ for any $0 \leq j \leq p$.  
+
+    By our assumption, we have that $\tilde x_i = x_i - \bar x_i \mathbf{1}$ for $i = 1, \dots, p$.  Thus we can write $\tilde x_i = \sum_{j \leq i} \alpha_j z_j$, and as the $z_j$ are orthogonal, we must be able to write $\tilde x_i$ in terms of $z_j$ for $j = 1, 2, \dots, i$.  Thus $\text{span}(\tilde x_1, \dots, \tilde x_i) = \text{span}(z_1, \dots, z_i)$.  
+
+    Finally, we calculate $\text{span}(u_1, \dots, u_p)$.  We have that $U$ is a unitary $N \times p$ matrix, and thus the columns of $U$ span the column space of $\tilde X$, and thus the span of $Q_2$ is equal to the span of $U$.  
+
+    TODO: When is $Q_2$ equal to $U$ up to parity?  Is it where columns of 
+\end{proof}<++>
+\begin{exer}[Forward stepwise regression]
+    Suppose that we have the $QR$ decomposition for the $N \times q$ matrix $X_1$ in a multiple regression problem with response $y$, and we have an additional $p - q$ predictors in matrix $X_2$.  Denote the current residual by $r$.  We wish to establish which one of these additional variables will reduce the residual-sum-of-squares the most when included with those in $X_1$.  Describe an efficient procedure for doing this.
+\end{exer}
+
+\begin{proof}
+    Select the vector $x_{j'}$ where
+    \begin{align*}
+        x_{j'} = \argmin_{j = q+1, \dots, p} \left| \left\langle \frac{x_q}{\| x_q \|}, r \right\rangle \right| 
+    \end{align*}
+    
+    This selects the vector that explains the maximal amount of variance in $r$ given $X_1$, and thus reduces the residual sum of squares the most.  It is then possible to repeat this procedure by updating $X_2$ as in Algorithm 3.1.
+\end{proof}
+\begin{exer}[Backward stepwise regression]
+    Suppose that we have the multiple regression fit of $y$ on $X$, along with standard errors and $z$-scores.  We wish to establish which variable, when dropped, will increase the RSS the least.  How would you do this?
+\end{exer}
+
+\begin{proof}
+    By Exercise 3.1, we can show that the F-statistic for dropping a single coefficient from a model is equal to the square of the corresponding $z$-score.  Thus, we drop the variable that has the lowest squared $z$-score from the model.
+\end{proof}
+
+\begin{exer}
+    Show that the solution to the multivariate linear regression problem (3.40) is given by (3.39).  What happens if the covariance matrices $\Sigma_i$ are different for each observation?
+\end{exer}
+
+
+\begin{exer}
     For our augmented matrix $X_1$, equal to appending $\sqrt{\lambda I}$ to the original observation matrix $X$, we have that the $RSS$ expression for OLS regression becomes \begin{align*}
         RSS &= \sum_{i=1}^{N+p} \left(y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{i = N + 1}^{N+p} \left(\sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
