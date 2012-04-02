@@ -75,6 +75,9 @@ tabsize=2
   \] and under the null hypothesis that $\beta_j$ is zero, $z_j$ is distributed according to a $t$-distribution with $N-p-1$ degrees of freedom. 
 
   Hence, by dropping a single coefficient from a model, our $F$ statistic has a $F_{1, N-p - 1}$ where $p + 1$ are the number of parameters in the original model.  Similarly, the corresponding $z$-score is distributed according to a $t_{N-p-1}$ distribution, and thus the square of the $z$-score is distributed according to an $F_{1, N-p-1}$ distribution, as required.
+
+  Thus both the $z$-score and the $F$ statistic test identical hypotheses under identical distributions.  Thus they must have the same value in this case.    
+
 \end{proof}
 \begin{exer}
     Given data on two variables $X$ and $Y$, consider fitting a cubic polynomial regression model $f(X) = \sum_{j=0}^{3} \beta_j X^j$.  In addition to plotting the fitted curve, you would like a 95\% confidence band about the curve.  Consider the following two approaches:
@@ -100,7 +103,7 @@ tabsize=2
     \end{figure}
 
     We can implement this algorithm in R as follows:
-\clearpage
+
 \begin{lstlisting}
 library("ggplot2")
 library("reshape2")
@@ -138,13 +141,14 @@ p <- p + scale_color_brewer(name="Legend",
                  "95% Upper Bound"), 
         palette="Set1")
 \end{lstlisting}
-
 \end{proof}
+
 \begin{exer}
     Prove the Gauss-Markov theorem: the least squares estimate of a parameter $a^T\beta$ has a variance no bigger than that of any other linear unbiased estimate of $a^T\beta$.
 
     Secondly, show that if $\hat V$ is the variance-covariance matrix of the least squares estimate of $\beta$ and $\tilde V$ is the variance covariance matrix of any other linear unbiased estimate, then $\hat V \leq \tilde V$, where $B \leq A$ if $A - B$ is positive semidefinite.
 \end{exer}
+
 \begin{proof}
     Let $\hat \theta = a^T \hat \beta = a^T(X^TX)^{-1}X^T y$ be the least squares estimate of $a^T \beta$.  Let $\tilde \theta = c^T y$ be any other unbiased linear estimator of $a^T \beta$.  Now, let $d^T = c^T - a^T(X^{-1}X)^{-1}X^T$.  Then as $c^T y$ is unbiased, we must have \begin{align*}
         E(c^T y) &= E\left( a^T(X^{T}X)^{-1}X^T + d^T\right) y \\
