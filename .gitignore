@@ -6,3 +6,4 @@
 *.Rdata
 *.RData
 *.Rhistory
+*.latexmain

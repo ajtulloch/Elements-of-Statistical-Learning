@@ -1,0 +1,65 @@
+\documentclass[12pt]{amsbook}
+\usepackage{amsthm, amsmath, amssymb}
+\usepackage{geometry, setspace, graphicx, enumerate, fullpage}
+\usepackage{listings}
+\onehalfspacing                 
+
+\usepackage[usenames, dvipsnames]{color}
+\definecolor{graphblue}{RGB}{52, 138, 189}
+\definecolor{graphpurple}{RGB}{122, 104, 166}
+
+\theoremstyle{plain}% default 
+\newtheorem{thm}{Theorem}[chapter] 
+\newtheorem{lem}[thm]{Lemma} 
+\newtheorem{prop}[thm]{Proposition} 
+\newtheorem{exer}[thm]{Exercise} 
+
+\newtheorem*{cor}{Corollary} 
+
+\theoremstyle{definition} 
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{exmp}[thm]{Example}
+
+\theoremstyle{remark} 
+\newtheorem*{rem}{Remark} 
+\newtheorem*{note}{Note} 
+\newtheorem{case}{Case} 
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\lstset{
+language=Python,
+numbers=left,
+numberstyle=\scriptsize,
+stepnumber=0,
+numbersep=5pt,
+showspaces=false,
+breaklines=true,
+basicstyle=\ttfamily\scriptsize,
+frame=single,
+commentstyle=\scriptsize,
+prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+showstringspaces=false,
+showtabs=false,
+identifierstyle=\ttfamily,
+stringstyle=\color{Gray},
+commentstyle=\color{graphpurple},
+keywordstyle=\color{graphblue},
+commentstyle=\color{RoyalBlue},
+keywordstyle=\color{RedViolet},
+tabsize=2
+}
+
+\title{Elements of Statistical Learning}
+\author{Andrew Tulloch}
+
+\begin{document}
+\maketitle
+
+\setcounter{chapter}{1}
+\include{ESL-Chap2Solutions}
+\include{ESL-Chap3Solutions}
+
+\end{document}

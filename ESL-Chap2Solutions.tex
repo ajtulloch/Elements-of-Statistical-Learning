@@ -1,77 +1,4 @@
-% Created by Andrew Tulloch
-
-%!TEX TS-program = xelatex
-%!TEX encoding = UTF-8 Unicode
-
-
-\documentclass[12pt]{amsart}
-\usepackage{amsthm, amsmath, amssymb}
-\usepackage{geometry, setspace, graphicx, enumerate, fullpage}
-\onehalfspacing                 
-\usepackage{fontspec,xltxtra,xunicode}
-
-\usepackage[usenames, dvipsnames]{color}
-\definecolor{graphblue}{RGB}{52, 138, 189}
-\definecolor{graphpurple}{RGB}{122, 104, 166}
-
-\usepackage{listings}
-
-\lstset{
-language=Python,
-numbers=left,
-numberstyle=\scriptsize,
-stepnumber=0,
-numbersep=5pt,
-showspaces=false,
-breaklines=true,
-basicstyle=\ttfamily\scriptsize,
-frame=single,
-commentstyle=\scriptsize,
-prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-showstringspaces=false,
-showtabs=false,
-identifierstyle=\ttfamily,
-stringstyle=\color{Gray},
-commentstyle=\color{graphpurple},
-keywordstyle=\color{graphblue},
-commentstyle=\color{RoyalBlue},
-keywordstyle=\color{RedViolet},
-tabsize=2
-}
-
-% AMS Theorems
-\theoremstyle{plain}% default 
-\newtheorem{thm}{Theorem}[section] 
-\newtheorem{lem}[thm]{Lemma} 
-\newtheorem{prop}[thm]{Proposition} 
-\newtheorem{exer}[thm]{Exercise} 
-
-\theoremstyle{definition} 
-\newtheorem{defn}[thm]{Definition}
-\newtheorem{conj}[thm]{Conjecture}
-\newtheorem{exmp}[thm]{Example}
-
-\theoremstyle{remark} 
-\newtheorem*{rem}{Remark} 
-\newtheorem*{note}{Note} 
-\newtheorem{case}{Case} 
-
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-		
-		
-\title{Elements of Statistical Learning - Chapter 2 Solutions}								% Document Title
-\author{Andrew Tulloch}
-
-
-\begin{document}
-\maketitle
-\section{Chapter 1}
-
-No exercises.
-
-\section{Chapter 2}
+\chapter{Overview of Supervised Learning}
 \begin{exer}
     Suppose that each of $K$-classes has an associated target $t_k$, which is a vector of all zeroes, except a one in the $k$-th position.  Show that classifying the largest element of $\hat y$ amounts to choosing the closest target, $\min_k \| t_k - \hat y \|$ if the elements of $\hat y$ sum to one. 
 \end{exer}
@@ -286,4 +213,3 @@ errors <- sapply(knn.results, function(classification) { classError(knn.test.dat
         E(R_{tr}(\hat \beta)) \leq E(R_{te}(\hat \beta))
     \] where the expectation is over all that is random in each expression.
 \end{exer}
-\end{document}

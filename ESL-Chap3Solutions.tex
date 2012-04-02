@@ -1,65 +1,4 @@
-\documentclass[12pt]{amsart}
-\usepackage{amsthm, amsmath, amssymb}
-\usepackage{geometry, setspace, graphicx, enumerate, fullpage}
-\usepackage{listings}
-\onehalfspacing                 
-
-\usepackage[usenames, dvipsnames]{color}
-\definecolor{graphblue}{RGB}{52, 138, 189}
-\definecolor{graphpurple}{RGB}{122, 104, 166}
-
-\theoremstyle{plain}% default 
-\newtheorem{thm}{Theorem}[section] 
-\newtheorem{lem}[thm]{Lemma} 
-\newtheorem{prop}[thm]{Proposition} 
-\newtheorem{exer}[thm]{Exercise} 
-
-\newtheorem*{cor}{Corollary} 
-
-\theoremstyle{definition} 
-\newtheorem{defn}[thm]{Definition}
-\newtheorem{conj}[thm]{Conjecture}
-\newtheorem{exmp}[thm]{Example}
-
-\theoremstyle{remark} 
-\newtheorem*{rem}{Remark} 
-\newtheorem*{note}{Note} 
-\newtheorem{case}{Case} 
-
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-\lstset{
-language=Python,
-numbers=left,
-numberstyle=\scriptsize,
-stepnumber=0,
-numbersep=5pt,
-showspaces=false,
-breaklines=true,
-basicstyle=\ttfamily\scriptsize,
-frame=single,
-commentstyle=\scriptsize,
-prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-showstringspaces=false,
-showtabs=false,
-identifierstyle=\ttfamily,
-stringstyle=\color{Gray},
-commentstyle=\color{graphpurple},
-keywordstyle=\color{graphblue},
-commentstyle=\color{RoyalBlue},
-keywordstyle=\color{RedViolet},
-tabsize=2
-}
-
-\title{Elements of Statistical Learning - Chapter 3 Solutions}								% Document Title
-\author{Andrew Tulloch}
-
-\begin{document}
-\maketitle
-\setcounter{section}{2}
-
-\section{Chapter 3}
+\chapter{Linear Methods for Regression}
 
 \begin{exer}
   Show that the $F$ statistic for dropping a single coefficient from a model is equal to the square of the corresponding $z$-score.
@@ -282,5 +221,3 @@ p <- p + scale_color_brewer(name="Legend",
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{j=1}^p \lambda \beta_j^2 
     \end{align*} which is the objective function for the ridge regression estimate.
 \end{exer}
-
-\end{document}
