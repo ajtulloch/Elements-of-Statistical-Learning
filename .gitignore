@@ -3,4 +3,6 @@
 *.fdb_latexmk
 *.pdf
 *.log
-
+*.Rdata
+*.RData
+*.Rhistory
