@@ -1,6 +1,6 @@
-\documentclass[12pt]{amsbook}
+\documentclass[oneside]{amsbook}
 \usepackage{amsthm, amsmath, amssymb}
-\usepackage{geometry, setspace, graphicx, enumerate, fullpage}
+\usepackage{geometry, setspace, graphicx, enumerate}
 \usepackage{listings}
 \onehalfspacing                 
 
@@ -52,11 +52,15 @@ keywordstyle=\color{RedViolet},
 tabsize=2
 }
 
+\usepackage{hyperref}
+
 \title{Elements of Statistical Learning}
 \author{Andrew Tulloch}
 
 \begin{document}
 \maketitle
+
+\tableofcontents
 
 \setcounter{chapter}{1}
 \include{ESL-Chap2Solutions}

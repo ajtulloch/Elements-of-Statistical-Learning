@@ -7,3 +7,5 @@
 *.RData
 *.Rhistory
 *.latexmain
+*.out
+*.toc

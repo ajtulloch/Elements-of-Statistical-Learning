@@ -213,11 +213,14 @@ p <- p + scale_color_brewer(name="Legend",
     Show that the solution to the multivariate linear regression problem (3.40) is given by (3.39).  What happens if the covariance matrices $\Sigma_i$ are different for each observation?
 \end{exer}
 
-
 \begin{exer}
+    Show that the ridge regression estimates can be obtained by OLS on an augmented data set.  We augment the centred matrix $X$ with $p$ additional rows $\sqrt{\lambda} \mathbf{I}$, and augment $y$ with $p$ zeroes. 
+
+\end{exer}
+\begin{proof}
     For our augmented matrix $X_1$, equal to appending $\sqrt{\lambda I}$ to the original observation matrix $X$, we have that the $RSS$ expression for OLS regression becomes \begin{align*}
         RSS &= \sum_{i=1}^{N+p} \left(y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{i = N + 1}^{N+p} \left(\sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{j=1}^p \lambda \beta_j^2 
     \end{align*} which is the objective function for the ridge regression estimate.
-\end{exer}
+\end{proof}
