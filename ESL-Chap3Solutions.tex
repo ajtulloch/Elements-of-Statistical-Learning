@@ -38,50 +38,14 @@
                                     &= \hat \sigma^2 x_0^T (X^T X)^{-1} x_0.
     \end{align*} where $\hat \sigma^2$ is the estimated variance of the innovations $\epsilon_i$.
     
-    
+    R code and graphs of the simulation are attached.
+    \clearpage
+    \lstinputlisting{./ElemStatLearnCode/src/exercise_3_2.R}
+    \clearpage
     \begin{figure}
-	\centering\includegraphics[width=\textwidth]{./RCode/CubicRegression.png}
+	\centering\includegraphics[width=\textwidth]{ElemStatLearnCode/graphs/exercise_3_2.pdf}
     \end{figure}
 
-    We can implement this algorithm in R as follows:
-
-\begin{lstlisting}
-library("ggplot2")
-library("reshape2")
-
-# Raw data
-simulation.xs <- c(1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969)
-simulation.ys <- c(4835, 4970, 5085, 5160, 5310, 5260, 5235, 5255, 5235, 5210, 5175)
-simulation.df <- data.frame(pop = simulation.ys, year = simulation.xs)
-
-# Rescale years
-simulation.df$year <- simulation.df$year - 1964
-
-# Generate regression, construct confidence intervals
-fit <- lm(pop ~ year + I(year^2) + I(year^3), data=simulation.df)
-xs <- seq(-5, 5, 0.1)
-fit.confidence <- predict(fit, data.frame(year=xs), interval="confidence", level=0.95)
-
-
-# Create data frame containing variables of interest
-df <- as.data.frame(fit.confidence)
-df$year <- xs
-df <- melt(df, id.vars="year")
-
-p <- ggplot()
-p <- p + geom_line(aes(x=year, y=value, colour=variable),
-                   df)
-P <- p + geom_point(aes(x=year, y=pop), 
-                    simulation.df)
-p <- p + scale_x_continuous('Year') 
-p <- p + scale_y_continuous('Population')
-p <- p + opts(title="Cubic regression with confidence intervals")
-p <- p + scale_color_brewer(name="Legend",
-        labels=c("Fit", 
-                 "95% Lower Bound", 
-                 "95% Upper Bound"), 
-        palette="Set1")
-\end{lstlisting}
 
     TODO: Part 2.
 \end{proof}
@@ -223,4 +187,37 @@ p <- p + scale_color_brewer(name="Legend",
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{i = N + 1}^{N+p} \left(\sum_{j=1}^p x_{ij} \beta_j \right)^2 \\
             &= \sum_{i=1}^{N} \left( y_i - \sum_{j=1}^p x_{ij} \beta_j \right)^2 + \sum_{j=1}^p \lambda \beta_j^2 
     \end{align*} which is the objective function for the ridge regression estimate.
+\end{proof}
+
+\begin{exer}
+    Derive expression (3.62), and show that $\hat \beta^{\text{pcr}}(p) = \hat \beta^{\text{ls}}$.
+\end{exer}
+
+\begin{exer}
+    Show that in the orthogonal case, PLS stops after $m=1$ steps, because subsequent $\hat \phi_{mj}$ in step 2 in Algorithm 3.3 are zero.
+\end{exer}
+
+\begin{exer}
+    Verity expression (3.64), and hence show that the PLS directions are a compromise between the OLS coefficients and the principal component directions.
+\end{exer}
+
+\begin{exer}
+    Derive the entries in Table 3.4, the explicit forms for estimators in the orthogonal case.
+\end{exer}
+
+\begin{exer}
+    Repeat the analysis of Table 3.3 on the spam data discussed in Chapter 1.
+\end{exer}
+
+\begin{proof}
+    R code implementing this method is attached.  We require the \texttt{MASS}, \texttt{lars}, and \texttt{pls} packages.
+
+    \clearpage
+    \lstinputlisting{ElemStatLearnCode/src/exercise_3_17.R}
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[width=\textwidth]{ElemStatLearnCode/graphs/exercise_3_17.pdf}
+        \end{center}
+    \end{figure}
 \end{proof}

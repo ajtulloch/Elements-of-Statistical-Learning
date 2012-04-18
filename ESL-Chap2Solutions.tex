@@ -170,40 +170,17 @@ Thus we must have \[
     Compare the classification performance of linear regression and $k$-nearest neighbour classification on the \texttt{zipcode} data.  In particular, consider on the \texttt{2}'s and \texttt{3}'s, and $k = 1, 3, 5, 7, 15$.  Show both the training and test error for each choice.
 \end{exer}
 
-\begin{proof}
-    TODO - Plot error rates, etc.
-    
-\begin{lstlisting}
-# Load training data
-zip.train <- as.data.frame(read.table(file="zip.train", header=FALSE))
-colnames(zip.train) <- c("Y",paste("X.",1:256,sep=""))
-zip.train.filtered <- subset(zip.train, Y == 2 | Y == 3)
-# Create linear regression
-mod <- lm(Y ~ ., data = zip.train.filtered)
+\begin{proof}    
+Our implementation in R and graphs are attached.
 
-# Load testing data
-zip.test <- as.data.frame(read.table(file="zip.test", header=FALSE))
-colnames(zip.test) <- c("Y",paste("X.",1:256,sep=""))
-zip.test.filtered <- subset(zip.test, Y == 2 | Y == 3)
-# Predict categories
-zip.test.filtered$Ypred <- predict(mod, zip.test.filtered)
+\clearpage
+\lstinputlisting{./ElemStatLearnCode/src/exercise_2_8.R}
 
-category_f <- function(x) {
-if (x > 2.5) 3 else 2
-}
-# Round predictions
-zip.test.filtered$Yround <- sapply(zip.test.filtered$Ypred, category_f)
+\clearpage
+\begin{figure}
+\centering\includegraphics[width=\textwidth]{./ElemStatLearnCode/graphs/exercise_2_8.pdf}
+\end{figure}
 
-##### KNN
-knn.test.data <- subset(zip.test, Y == 2 | Y == 3)
-knn.train.data <- subset(zip.train, Y == 2 | Y == 3)
-knn.train.data$Y <- as.factor(knn.train.data$Y)
-
-knn.results <- sapply(1:15, function(k) { knn(train=knn.train.data, test=knn.test.data, knn.train.data$Y, k = k) })
-install.packages("mclust")
-errors <- sapply(knn.results, function(classification) { classError(knn.test.data$Y, classification)$errorRate})
-\end{lstlisting}
-    
 \end{proof}
 
 \begin{exer}

@@ -8,3 +8,6 @@ zip.train.filtered <- subset(zip.train, Y == 2 | Y == 3)
 
 colnames(zip.test) <- c("Y",paste("X.",1:256,sep=""))
 zip.test.filtered <- subset(zip.test, Y == 2 | Y == 3)
+
+cache("zip.test.filtered")
+cache("zip.train.filtered")
